@@ -1,0 +1,62 @@
+[
+    {
+        "FileType": "yml",
+        "RegexRule": "(?:password|secret|key|token|credential)\\s*:\\s*[\\\"\\''][^\\\"\\']+[\\\"\\'']",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "yaml",
+        "RegexRule": "(?:password|secret|key|token|credential)\\s*:\\s*[\\\"\\''][^\\\"\\']+[\\\"\\'']",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "properties",
+        "RegexRule": "(?:password|secret|key|token|credential)\\s*=\\s*[^\\\"\\'\\s]+",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "xml",
+        "RegexRule": "<(?:password|secret|key|token|credential)>([^<]+)</(?:password|secret|key|token|credential)>",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "json",
+        "RegexRule": "\"(?:password|secret|key|token|credential)\"\\s*:\\s*\"[^\"]+\"",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "config",
+        "RegexRule": "(?:connectionString|password|secret|key|token|credential)\\s*=\\s*\"[^\"]+\"",
+        "Readme": "配置文件中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:String|final)\\s+(?:password|secret|key|token|credential)\\s*=\\s*\"[^\"]+\"",
+        "Readme": "代码中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "cs",
+        "RegexRule": "(?:string|const)\\s+(?:password|secret|key|token|credential)\\s*=\\s*\"[^\"]+\"",
+        "Readme": "代码中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "php",
+        "RegexRule": "\\\\$(?:password|secret|key|token|credential)\\s*=\\s*[\\\"\\''][^\\\"\\']+[\\\"\\'']",
+        "Readme": "代码中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:password|secret|key|token|credential)\\s*=\\s*['\"][^'\"]+['\"]",
+        "Readme": "代码中存在硬编码的敏感信息，可能导致安全风险。",
+        "VulName": "敏感信息泄露"
+    }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "FileType": "java",
+    "RegexRule": "Runtime\\.getRuntime\\(\\)\\.exec\\(",
+    "Readme": "Java命令执行函数，可能存在命令注入漏洞",
+    "VulName": "命令注入"
+  },
+  {
+    "FileType": "java",
+    "RegexRule": "new\\s+ProcessBuilder\\(",
+    "Readme": "Java进程构建函数，可能存在命令注入漏洞",
+    "VulName": "命令注入"
+  },
+  {
+    "FileType": "java",
+    "LikeName": "password",
+    "Readme": "文件名中包含password，可能存在硬编码密码",
+    "VulName": "硬编码密码"
+  },
+  {
+    "FileType": "php",
+    "RegexRule": "eval\\(\\$_(?:GET|POST|REQUEST|COOKIE)",
+    "Readme": "PHP eval函数直接执行用户输入，存在代码执行漏洞",
+    "VulName": "代码执行"
+  },
+  {
+    "FileType": "cs",
+    "RegexRule": "Process\\.Start\\(",
+    "Readme": ".NET进程启动函数，可能存在命令注入漏洞",
+    "VulName": "命令注入"
+  }
+]

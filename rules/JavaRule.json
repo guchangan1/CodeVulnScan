@@ -1,0 +1,286 @@
+[
+    
+    {
+        "FileType": "java",
+        "RegexRule": "File\\.write\\([^\"]*\\)",
+        "Readme": "存在调用java文件写入方法，且其中存在变量，需判断变量是否为用户可控。",
+        "VulName": "Java任意文件写入"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "new\\s+XMLDecoder\\(",
+        "Readme": "在Servlet中存在通过请求接收参数并置入请求体中，疑似存在逻辑漏洞。",
+        "VulName": "Java逻辑漏洞"
+    },{
+        "FileType": "java",
+        "RegexRule": "@(?:Request|Get|Post|Delete|Put)Mapping\\(.*?\\)",
+        "Readme": "spring 路由提取",
+        "VulName": "Spring框架 Servlet"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(getOriginalFilename|MultipartFile)",
+        "Readme": "文件操作函数，可能存在文件上传操作",
+        "VulName": "文件上传"
+    },
+
+    {
+        "FileType": "java",
+        "RegexRule": "(?:Class<[^>]*>\\s+\\w+\\s+=\\s+)?\\w+\\.parseClass\\([^\"]*\\)",
+        "Readme": "Groovy代码执行危险函数.parseClass其中存在变量，注意查看变量是否为用户可控。",
+        "VulName": "代码注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\s+Class\\.forName\\([^\"]*\\)",
+        "Readme": "存在Java反射调用点，该处可导致代码执行，其中存在变量，注意查看变量参数是否为用户可控。",
+        "VulName": "代码注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:groovyShell)?\\w+\\.evaluate\\([^\"]*\\)",
+        "Readme": "存在GroovyShell代码执行危险函数.evaluate，其中存在变量，注意查看变量参数是否为用户可控。",
+        "VulName": "代码注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:compiledScript|scriptEngine)?\\w+\\.eval\\([^\"]*\\)",
+        "Readme": "存在ScriptEngine或CompiledScript代码执行危险函数.eval，其中包含变量，注意查看变量参数是否为用户可控。",
+        "VulName": "代码注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:Connection\\s+\\w+\\s+=\\s+)?DriverManager\\.getConnection\\(\\s*[^\"']*\\)",
+        "Readme": "在JDBC连接池配置中存在变量，疑似存在JDBC反序列漏洞，可关注getConnection中参数是否可控。",
+        "VulName": "JDBC反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:JSON|JSONObject|JSONArray)\\.(?:parse|parseObject|parseArray)\\(\\s*[^\"']*\\)",
+        "Readme": "存在fastjson反序列化危险函数，其中包含变量，关注危险函数中参数变量是否可控。",
+        "VulName": "fastjson反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:xstream)?\\w+\\.fromXML\\(\\s*[^\"']*\\)",
+        "Readme": "存在XML反序列化危险函数XStream.fromXML()，其中存在变量，关注危险函数中变量参数是否可控。",
+        "VulName": "XML反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "new\\s+XMLDecoder\\(\\s*[^\"']*\\)",
+        "Readme": "存在实例化XML反序列化危险函数XMLDecoder，且其中存在变量，关注其变量是否为用户可控及是否调用readObject危险函数。",
+        "VulName": "XML反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:yaml)?\\.(load|loadAs)\\(\\s*[^\"']*\\)",
+        "Readme": "疑似存在snakeyaml反序列化危险函数load或loadAS，且其中存在变量；需关注变量是否可控且snakeyaml版本应小于2.0。",
+        "VulName": "XML反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\.parseExpression\\(\\w+\\)\\.getValue\\(\\s*[^\"']*\\)",
+        "Readme": "存在Java表达式注入危险函数-SpelExpressionParser.parseExpression().getValue，且其中存在变量，需关注变量是否为用户可控。",
+        "VulName": "表达式注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:JexlExpression\\s+\\w+\\s+=\\s+)?(?:jexlEngine)?\\.createExpression\\(\\s*[^\"']*\\)",
+        "Readme": "存在Java表达式注入危险函数-JexlExpression.createExpression()，且其中存在变量，需关注变量是否为用户可控。",
+        "VulName": "表达式注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "Ognl\\.parseExpression\\(\\s*[^\"']*\\)",
+        "Readme": "存在Java表达式注入危险函数-Ognl.parseExpression()，且其中存在变量，需关注变量是否为用户可控。",
+        "VulName": "表达式注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:objectMapper|mapper)?\\.enableDefaultTyping\\(",
+        "Readme": "在java代码中，存在Jackjson开启了ObjectMapper.enableDefaultTyping，当在系统中Controller中将Target直接进行返回时，可导致反序列化漏洞。漏洞版本小于2.10.x",
+        "VulName": "jackjson反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\s*\\.validate\\(",
+        "Readme": "存在validation中validate危险函数，需关注其中资源文件是否为外部可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:MyObject)?\\w+\\.unmarshal\\(",
+        "Readme": "存在Unmarshaller危险函数，需关注其参数是否为外部可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?i)(?:Document\\s+\\w+\\s+=\\s+)\\w+\\.\\s*parse\\(\\s*[^\"'()]*\\)",
+        "Readme": "存在DocumentBuilder中parse危险函数，且其中存在变量，需关注危险函数中变量参数是否可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:XMLStreamReader\\s+\\w+\\s+=\\s+)?\\w+\\.\\s*createXMLStreamReader\\(",
+        "Readme": "存在XMLStreamReader.createXMLStreamReader方法，需要查看该类中是否存在Unmarshaller.unmarshal()处理xml流且关注危险函数中参数是否可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "new\\s+SAXReader\\(",
+        "Readme": "存在实例化SAXReader对象，需要关注其read()方法中内容是否为外部可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:XMLReader\\s+\\w+\\s+=\\s+)?XMLReaderFactory\\.createXMLReader\\(",
+        "Readme": "存在实例化XMLReader对象，需要关注其parse()方法中内容是否为外部可控。",
+        "VulName": "XML外部实体注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "Runtime\\.getRuntime\\(\\)(?:\\.exec\\()?",
+        "Readme": "存在Java命令执行调用点，需要关注是否存在高危方法exec()，且其中参数是否可控。",
+        "VulName": "命令执行漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "Runtime\\.getRuntime\\(\\)\\.exec\\(\\s*[^\"']*\\)",
+        "Readme": "存在Java命令执行调用点，且其中存在变量，需关注其中变量参数是否可控。",
+        "VulName": "命令执行漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:ProcessBuilder\\s+\\w+\\s+=\\s+)?new\\s+ProcessBuilder\\(\\s*[^\"']*\\)",
+        "Readme": "存在Java命令执行调用点，且在实例化ProcessBuilder()中存在变量，需关注变量参数是否为用户可控。",
+        "VulName": "命令执行漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:VelocityContext\\s+\\w+\\s+=\\s+)?new\\s+VelocityContext\\(",
+        "Readme": "存在实例化VelocityContext(),当参数可控时，其evaluate()方法存在模版注入漏洞；需要关注是否存在高危方法evaluate()，且其中参数是否可控。",
+        "VulName": "模版注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:Template)?\\w+\\.getTemplate\\(",
+        "Readme": "存在org.freemarker引入,需判断是否存在process()危险函数，且参数可控。",
+        "VulName": "模版注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:JasperReport)?\\w+\\.compileReport\\(",
+        "Readme": "存在Jasper引入,疑似存在ssti模版注入,需判断是否存在compileReport()中文件是否为用户可控。",
+        "VulName": "模版注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:objectInputStream)?\\w+\\.readObject\\(",
+        "Readme": "疑似存在ObjectInputStream.readObject()危险方法，需要关注对应实体类是否实现Serializable对应接口。",
+        "VulName": "java原生反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\s*\\.readUnshared\\(\\)",
+        "Readme": "存在readUnshared()危险方法，注意其流是否可控，当可控时可能存在反序列化漏洞。",
+        "VulName": "java原生反序列化漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:URLClassLoader\\s+\\w+\\s+=\\s+)?new\\s+URLClassLoader\\(",
+        "Readme": "存在URLClassLoader远程方法调用，需注意实例化中参数是否为可控。",
+        "VulName": "java-RPC漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\.lookup\\(",
+        "Readme": "疑似存在jndi中lookup()远程方法调用，注意其调用方法是否可控，当可控时可能存在rce漏洞。",
+        "VulName": "java-RPC漏洞"
+    },
+    {
+        "likeName": "mapper",
+        "FileType": "xml",
+        "RegexRule": "\\$\\{",
+        "Readme": "存在非预编译sql语句，疑似存在sql注入；需研判该调用点是否为用户可控。【改规则模糊匹配文件名中携带mapper,且文件类型为xml格式。】",
+        "VulName": "Mybatis-SQL注入"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "\\.getOriginalFilename\\(|MultipartFile\\s",
+        "Readme": "使用MultipartFile上传文件，判断是否有文件类型过滤。",
+        "VulName": "文件上传"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:FileWriter\\s+\\w+\\s+=\\s+)?new\\s+FileWriter\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "Readme": "存在实例化FileWriter，且其中存在变量，需判断变量是否为用户可控，当可控时，则存在任意文件上传。",
+        "VulName": "文件上传"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:select|delete)\\s{1,5}.{1,60}from\\s.*where\\s.*[\\+]",
+        "Readme": "在进行select查询或delete删除时，存在where拼接行为，疑似存在sql注入；需研判该调用点是否为用户可控。",
+        "VulName": "SQL注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "insert\\s{1,10}into\\s{1,5}.{1,60}\\s{1,10}values\\([\\s+]",
+        "Readme": "在进行insert添加时，存在变量赋值行为，疑似存在sql注入；需研判该调用点是否为用户可控。",
+        "VulName": "SQL注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "update\\s{1,5}.{1,60}set\\s.*where\\s.*[\\+]",
+        "Readme": "在进行update更新时，存在变量赋值行为，疑似存在sql注入；需研判该调用点是否为用户可控。",
+        "VulName": "SQL注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:URLConnection\\s+\\w+\\s+=\\s+)?\\s*.openConnection\\(",
+        "Readme": "存在URL.openConnection()危险函数，疑似存在SSRF漏洞，需要关注实例化URL时，参数是否为用户可控。",
+        "VulName": "SQL注入漏洞"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:(?:HttpGet|HttpPost)\\s+\\w+\\s+=\\s+)?\\s*.(?:HttpGet|HttpPost)\\(",
+        "Readme": "存在HttpClient中HttpGet或HttpPost实例化，疑似存在SSRF漏洞，需要关注实例化时，传入的参数是否为用户可控。",
+        "VulName": "服务器端请求伪造-SSRF"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "Request\\.(?:Get|Post)\\s*\\(\\s*[^\\)]*\\s*\\)\\.execute\\s*\\(\\s*",
+        "Readme": "存在Request调用get或post请求，疑似存在SSRF漏洞，需要关注传入的参数是否为用户可控。",
+        "VulName": "服务器端请求伪造-SSRF"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "(?:OkHttpClient\\s+\\w+\\s+=\\s+)?new\\s+OkHttpClient\\(",
+        "Readme": "存在实例化OkHttpClient，需关注是否存在Request.Builder创建链接，且参数是否为用户可控。",
+        "VulName": "服务器端请求伪造-SSRF"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "ImageIO\\.read\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "Readme": "存在调用ImageIO.read()方法，且其中存在变量，需关注变量是否为用户可控。",
+        "VulName": "服务器端请求伪造-SSRF"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "response\\s*\\.getWriter\\s*\\(\\s*\\)",
+        "Readme": "直接使用response.getWriter向浏览器写数据，可能导致XSS。",
+        "VulName": "跨站脚本攻击-XSS"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "response\\.getOutputStream*",
+        "Readme": "直接使用response.getOutputStream向浏览器写数据，可能导致XSS。",
+        "VulName": "跨站脚本攻击-XSS"
+    },
+    {
+        "FileType": "java",
+        "RegexRule": "response\\s*\\.\\s*(?:setContentType|setHeader|addHeader|setStatus|sendRedirect)\\s*\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "Readme": "在response设置中，存在变量，直接向浏览器中写入数据，可能存在xss漏洞。",
+        "VulName": "跨站脚本攻击-XSS"
+    }
+]

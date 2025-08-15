@@ -1,0 +1,242 @@
+[
+
+  {
+    "VulName": "命令执行漏洞 (双平台)",
+    "RegexRule": "(?i)(Process\\.Start|ProcessStartInfo\\s*\\()",
+    "Readme": "Process类执行系统命令，参数外部可控导致RCE风险",
+    "FileType": "net"
+  },
+  {
+    "VulName": "命令执行漏洞 (双平台)",
+    "RegexRule": "(?i)(PowerShell\\.(Create|Invoke)|RunspaceFactory\\.CreateRunspace)",
+    "Readme": "PowerShell管道执行未过滤用户输入",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "SQL注入漏洞 (双平台)",
+    "RegexRule": "(?i)(ExecuteSql(Raw|Interpolated)\\s*\\(\\s*@?\\\"[^\\\"]*\\+)",
+    "Readme": "EF Core动态SQL拼接风险",
+    "FileType": "net"
+  },
+  {
+    "VulName": "SQL注入漏洞 (双平台)",
+    "RegexRule": "(?i)(SqlCommand\\s*\\([^\\)]*\\+)|(cmd\\.CommandText\\s*=[^;]*\\+)",
+    "Readme": "ADO.NET SQL命令拼接风险",
+    "FileType": "net"
+  },
+ {
+        "FileType": "net",
+        "RegexRule": "(?:select|delete)\\s{1,5}.{1,60}from\\s.*where\\s.*[\\+]",
+        "Readme": "在进行select查询或delete删除时，存在where拼接行为，疑似存在sql注入；需研判该调用点是否为用户可控。",
+        "VulName": "SQL注入漏洞"
+    },
+
+
+  {
+    "VulName": "XSS漏洞 (双平台)",
+    "RegexRule": "(?i)(Html\\.Raw\\s*\\(|Response\\.Write\\s*\\([^\\)]*\\+)",
+    "Readme": "未编码输出用户可控HTML内容",
+    "FileType": "net"
+  },
+  {
+    "VulName": "XSS漏洞 (双平台)",
+    "RegexRule": "(?i)<%=\\s*[\\w\\.]+\\s*%>",
+    "Readme": "ASPX内联表达式未使用Html.Encode",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "文件上传漏洞 (双平台)",
+    "RegexRule": "(?i)\\.CopyTo\\s*\\(\\s*Path\\.Combine\\s*\\([^,]+,\\s*[\\w\\.]+\\.FileName\\)",
+    "Readme": "使用上传文件名拼接路径导致路径遍历",
+    "FileType": "net"
+  },
+  {
+    "VulName": "文件上传漏洞 (双平台)",
+    "RegexRule": "(?i)File\\.WriteAll(Bytes|Text)\\s*\\([^,]+,\\s*[\\w\\.]+\\.OpenReadStream",
+    "Readme": "未校验文件内容签名和扩展名",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "SSRF漏洞 (双平台)",
+    "RegexRule": "(?i)(HttpClient|WebRequest)\\.[\\s\\n]*Get\\w*Async\\s*\\(\\s*[\\w\\.]+\\.[\\w]+\\[",
+    "Readme": "HTTP客户端使用未过滤的用户输入URL",
+    "FileType": "net"
+  },
+  {
+    "VulName": "SSRF漏洞 (双平台)",
+    "RegexRule": "(?i)new\\s+Uri\\s*\\(\\s*(Request\\.Query|FormCollection)",
+    "Readme": "未校验URL协议和白名单",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "XXE漏洞 (双平台)",
+    "RegexRule": "(?i)(new\\s+XmlDocument\\s*\\([^)]*\\)|XmlReader\\.[\\s\\n]*Create)\\.[^\\)]*Load\\s*\\([^,]*\\.(Input|Form)",
+    "Readme": "XML解析器处理未过滤的用户输入",
+    "FileType": "net"
+  },
+  {
+    "VulName": "XXE漏洞 (双平台)",
+    "RegexRule": "(?i)(XmlReaderSettings\\s*{[^}]*ProhibitDtd\\s*=\\s*false)|(DtdProcessing\\s*=\\s*DtdProcessing\\.Parse)",
+    "Readme": "XML解析配置显式启用外部实体",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "反序列化漏洞 (双平台)",
+    "RegexRule": "(?i)JsonConvert\\.DeserializeObject\\s*<[^>]+>\\s*\\([^,]+,.*(TypeNameHandling\\s*=\\s*(TypeNameHandling\\.)?(Objects|Auto|All))",
+    "Readme": "Newtonsoft.Json启用危险TypeNameHandling配置",
+    "FileType": "net"
+  },
+  {
+    "VulName": "反序列化漏洞 (.NET Framework高危)",
+    "RegexRule": "(?i)(BinaryFormatter|LosFormatter|SoapFormatter)\\.Deserialize\\s*\\(",
+    "Readme": ".NET Framework原生危险反序列化器，可导致RCE",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "ViewState未加密 (.NET Framework)",
+    "RegexRule": "(?i)<pages\\s+enableViewStateMac=\"true\"[^>]+viewStateEncryptionMode=\"Never\"",
+    "Readme": "ViewState启用MAC但禁用加密，可能被篡改",
+    "FileType": "web.config"
+  },
+  {
+    "VulName": "ViewState MAC禁用 (.NET Framework)",
+    "RegexRule": "(?i)<pages\\s+enableViewStateMac=\"false\"",
+    "Readme": "ViewState未启用消息认证码，可被篡改",
+    "FileType": "web.config"
+  },
+  {
+    "VulName": "ViewState敏感信息泄露 (.NET Framework)",
+    "RegexRule": "(?i)ViewState\\s*=\\s*[^;]*\\b(password|creditCard|ssn)\\b",
+    "Readme": "ViewState存储敏感数据，未加密可能导致泄露",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "路径遍历漏洞 (双平台)",
+    "RegexRule": "(?i)File\\.(Open|ReadAllText|WriteAllText)\\s*\\(\\s*Path\\.Combine\\s*\\([^,]+,\\s*[\\w\\.]+\\.(Query|Form)",
+    "Readme": "用户输入直接用于文件操作",
+    "FileType": "net"
+  },
+  {
+    "VulName": "路径遍历漏洞 (双平台)",
+    "RegexRule": "(?i)new\\s+StreamReader\\s*\\([^,]*\\+\\s*Request\\.Form",
+    "Readme": "未过滤路径遍历字符(../)",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "硬编码凭证 (双平台)",
+    "RegexRule": "(?i)(password|pwd|key|secret)\\s*=\\s*[\"'][^\"']{8,}[\"']",
+    "Readme": "源代码中硬编码敏感凭证",
+    "FileType": "net"
+  },
+  {
+    "VulName": "调试模式启用 (.NET Framework)",
+    "RegexRule": "(?i)<compilation\\s+[^>]*debug\\s*=\\s*\"true\"",
+    "Readme": "生产环境启用调试模式，泄露堆栈信息",
+    "FileType": "web.config"
+  },
+  {
+    "VulName": "详细错误暴露 (.NET Core)",
+    "RegexRule": "(?i)app\\.UseDeveloperExceptionPage\\s*\\([^)]*\\)[^;]*!env\\.IsDevelopment",
+    "Readme": "生产环境启用开发异常页面",
+    "FileType": "net"
+  },
+
+
+  {
+    "VulName": "未授权访问 (双平台)",
+    "RegexRule": "(?i)\\[Authorize\\][^\\]]*\\n\\s*public\\s+[^{]*\\{",
+    "whiteRegex": "\\[AllowAnonymous\\]",
+    "Readme": "控制器方法未添加授权特性",
+    "FileType": "net"
+  },
+  {
+    "VulName": "水平越权 (.NET Framework)",
+    "RegexRule": "(?i)User\\.Identity\\.Name\\s*!=\\s*[\\w\\.]+\\.UserId",
+    "Readme": "直接比较用户名而未验证资源所有权",
+    "FileType": "net"
+  },
+
+  {
+    "VulName": "不安全的反射 (.NET Framework高危)",
+    "RegexRule": "(?i)Assembly\\.Load\\s*\\([^)]*\\.(Query|Form)\\b",
+    "Readme": "动态加载用户可控程序集",
+    "FileType": "net"
+  },
+  {
+    "VulName": "Cookie安全配置缺陷 (双平台)",
+    "RegexRule": "(?i)new\\s+HttpCookie\\s*\\([^)]*\\)\\s*{\\s*HttpOnly\\s*=\\s*false",
+    "Readme": "Cookie未设置HttpOnly标志",
+    "FileType": "net"
+  },
+  {
+    "VulName": "CSRF防护缺失 (双平台)",
+    "RegexRule": "(?i)\\[(HttpPost|HttpPut)\\]\\s*public\\s+[^{]*\\{",
+    "whiteRegex": "\\[ValidateAntiForgeryToken\\]",
+    "Readme": "表单操作未验证防伪令牌",
+    "FileType": "net"
+  },
+    {
+        "FileType": "net",
+        "RegexRule": "new\\s+XmlSerializer\\(",
+        "Readme": "存在实例化XmlSerializer，可能存在xml反序列化漏洞；注意其Type类型是否可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:JavaScriptSerializer\\s+\\w+\\s+=\\s+)?new\\s+JavaScriptSerializer\\(",
+        "Readme": "存在实例化JavaScriptSerializer,可能存在反序列漏洞，需判断DeserializeObject()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:JsonSerializerSettings\\s+\\w+\\s+=\\s+)?new\\s+JsonSerializerSettings\\(",
+        "Readme": "存在实例化JsonSerializerSettings,可能存在反序列化漏洞，需判断DeserializeObject()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:SoapFormatter\\s+\\w+\\s+=\\s+)?new\\s+SoapFormatter\\(",
+        "Readme": "存在实例化SoapFormatter,可能存在反序列化漏洞，需判断Deserialize()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:IFormatter\\s+\\w+\\s+=\\s+)?new\\s+BinaryFormatter\\(",
+        "Readme": "存在实例化BinaryFormatter,可能存在反序列化漏洞，需判断Deserialize()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "TypeFilterLevel\\s*=\\s*TypeFilterLevel\\.Full",
+        "Readme": "存在将TypeFilterLevel设置为Full,可能存在反序列化漏洞。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:NetDataContractSerializer\\s+\\w+\\s+=\\s+)?new\\s+NetDataContractSerializer\\(",
+        "Readme": "存在实例化NetDataContractSerializer,可能存在反序列化漏洞，需判断Deserialize()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "net",
+        "RegexRule": "(?:LosFormatter\\s+\\w+\\s+=\\s+)?new\\s+LosFormatter\\(",
+        "Readme": "存在实例化LosFormatter,可能存在反序列化漏洞，需判断Deserialize()中参数是否为可控。",
+        "VulName": "反序列化漏洞"
+    }
+]

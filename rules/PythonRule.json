@@ -1,0 +1,80 @@
+[
+    {
+        "FileType": "py",
+        "RegexRule": "(?:os\\.system|subprocess\\.(?:call|Popen|run))\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在命令执行函数，其中包含变量，注意查看变量参数是否为用户可控。",
+        "VulName": "命令注入漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "eval\\(",
+        "Readme": "在python代码中存在命令执行危险函数，需要关注其参数是否为可控。",
+        "VulName": "命令注入漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:exec|eval)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在代码执行函数，其中包含变量，注意查看变量参数是否为用户可控。",
+        "VulName": "代码执行漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:pickle|marshal|yaml)\\.(?:loads|load)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在不安全的反序列化函数，其中包含变量，注意查看变量参数是否为用户可控。",
+        "VulName": "反序列化漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:request|requests)\\.(?:get|post|put|delete)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在HTTP请求函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在SSRF漏洞。",
+        "VulName": "SSRF漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:open|file)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在文件操作函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在任意文件读取或写入漏洞。",
+        "VulName": "文件操作漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:flask|django)\\.render\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在模板渲染函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在模板注入漏洞。",
+        "VulName": "模板注入漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:etree\\.parse|minidom\\.parse|parseString)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在XML解析函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在XXE漏洞。",
+        "VulName": "XXE漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "(?:cursor\\.execute|raw)\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在SQL执行函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在SQL注入漏洞。",
+        "VulName": "SQL注入漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "mark_safe\\(\\s*(?:(?!\")[^()]*)\\)",
+        "Readme": "存在Django的mark_safe函数，其中包含变量，注意查看变量参数是否为用户可控，可能存在XSS漏洞。",
+        "VulName": "XSS漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "xml\\.etree\\.ElementTree\\.(?:parse|iterparse|fromstring|XMLParser)\\(",
+        "Readme": "存在python的xml解析危险函数，注意其参数是否为可控。",
+        "VulName": "XXE漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "xml\\.dom\\.expatbuilder\\.(parse|parseString)\\(",
+        "Readme": "存在python的xml解析危险函数，注意其参数是否为可控。",
+        "VulName": "XXE漏洞"
+    },
+    {
+        "FileType": "py",
+        "RegexRule": "xml\\.sax\\.(parse|parseString|make_parser)\\(",
+        "Readme": "存在python的xml解析危险函数，注意其参数是否为可控。",
+        "VulName": "XXE漏洞"
+    }
+]
