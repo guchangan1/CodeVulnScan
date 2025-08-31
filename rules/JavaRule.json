@@ -213,7 +213,7 @@
     },
     {
         "FileType": "java",
-        "RegexRule": "(?:FileWriter\\s+\\w+\\s+=\\s+)?new\\s+FileWriter\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "RegexRule": "(?:FileWriter\\s+\\w+\\s+=\\s+)?new\\s+FileWriter\\(\\s*[^\\\"']*",
         "Readme": "存在实例化FileWriter，且其中存在变量，需判断变量是否为用户可控，当可控时，则存在任意文件上传。",
         "VulName": "文件上传"
     },
@@ -261,7 +261,7 @@
     },
     {
         "FileType": "java",
-        "RegexRule": "ImageIO\\.read\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "RegexRule": "ImageIO\\.read\\(\\s*[^\\\"']*",
         "Readme": "存在调用ImageIO.read()方法，且其中存在变量，需关注变量是否为用户可控。",
         "VulName": "服务器端请求伪造-SSRF"
     },
@@ -279,7 +279,7 @@
     },
     {
         "FileType": "java",
-        "RegexRule": "response\\s*\\.\\s*(?:setContentType|setHeader|addHeader|setStatus|sendRedirect)\\s*\\(\\s*(?![^\"']*\"[^\"]*\"(?:[^\"']*\"[^\"]*\")*)",
+        "RegexRule": "response\\s*\\.\\s*(?:setContentType|setHeader|addHeader|setStatus|sendRedirect)\\s*\\(\\s*[^\\\"']*",
         "Readme": "在response设置中，存在变量，直接向浏览器中写入数据，可能存在xss漏洞。",
         "VulName": "跨站脚本攻击-XSS"
     }
